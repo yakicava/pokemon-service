@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>図鑑検索</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>図鑑検索</h1>
+
+        <form method="post" th:action="@{/pokedex/result}">
+        <div class="row">
+                <label>図鑑番号</label>
+                <input type="number" name="id" min="1" max="1025" required>
+            </div>
+            <button type="submit">検索</button>
+        </form>
+
+        <div class="actions">
+            <a th:href="@{/}">← トップへ戻る</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

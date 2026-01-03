@@ -2,15 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>図鑑</title>
+    <title>Pokemon App</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-<h1>ポケモン図鑑 v1</h1>
+<div class="container">
+    <div class="card menu-card">
+        <h1 class="menu-title">Pokémon App</h1>
+        <p class="menu-subtitle">使いたい機能を選んでください</p>
 
-<form method="post" action="/pokemon">
-    <label>図鑑番号:</label>
-    <input type="number" name="id" min="1" max="1000" required>
-    <button type="submit">検索</button>
-</form>
+        <div class="menu-buttons">
+            <a class="menu-btn primary" th:href="@{/pokedex}">図鑑（検索）</a>
+            <a class="menu-btn secondary" th:href="@{/type-battle}">疑似対戦（タイプ相性）</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

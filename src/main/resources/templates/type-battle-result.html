@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>疑似対戦 - 比較結果</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>タイプ相性 比較結果</h1>
+
+        <h2>A: [[${view.nameA}]] (# [[${view.idA}]])</h2>
+        <p>タイプ:
+            <span th:each="t : ${view.typesA}"
+                  class="chip"
+                  th:attr="data-type=${t.name()}"
+                  th:text="${t.japaneseName()}"></span>
+
+        </p>
+
+        <h2>B: [[${view.nameB}]] (# [[${view.idB}]])</h2>
+        <p>タイプ:
+            <span th:each="t : ${view.typesB}"
+                  class="chip"
+                  th:attr="data-type=${t.name()}"
+                  th:text="${t.japaneseName()}"></span>
+
+        </p>
+
+        <hr>
+
+        <div class="result">
+            <p>[[${view.aToBLabel}]]</p>
+            <p>[[${view.bToALabel}]]</p>
+            <div class="judge">判定: [[${view.advantageLabel}]]</div>
+        </div>
+
+
+        <div class="actions">
+            <a th:href="@{/type-battle}">← もう一度比較</a>
+            <a th:href="@{/}">← トップへ戻る</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
