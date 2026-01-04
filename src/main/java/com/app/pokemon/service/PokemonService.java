@@ -5,6 +5,8 @@ import com.app.pokemon.api.PokemonSpeciesResponse;
 import com.app.pokemon.domain.Type;
 import com.app.pokemon.mapper.PokemonTypeMapper;
 import com.app.pokemon.view.PokemonView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -12,6 +14,10 @@ import java.util.List;
 
 @Service
 public class PokemonService {
+
+    private static final Logger log =
+            LoggerFactory.getLogger(PokemonService.class);
+
 
     private final RestClient client =
             RestClient.create("https://pokeapi.co/api/v2");
@@ -23,14 +29,20 @@ public class PokemonService {
     }
 
     public PokemonView getPokemonById(int id) {
+        return getPokemonById(id, "N/A");
+    }
+
+    public PokemonView getPokemonById(int id, String requestId) {
+        String rid = (requestId == null || requestId.isBlank()) ? "N/A" : requestId;
+        log.info("PokemonService#getPokemonById requestId={} id={}", rid, id);
+
         PokemonApiResponse res = fetchPokemonApiResponse(id);
         List<Type> types = pokemonTypeMapper.toTypes(res);
-
         String jaName = getJapaneseName(id);
 
         return new PokemonView(
                 id,
-                jaName, // 表示名は日本語
+                jaName,
                 types,
                 res.sprites() != null ? res.sprites().frontDefault() : null
         );

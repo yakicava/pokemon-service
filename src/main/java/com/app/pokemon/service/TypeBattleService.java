@@ -17,9 +17,9 @@ public class TypeBattleService {
         this.typeEffectivenessService = typeEffectivenessService;
     }
 
-    public TypeBattleView compareById(int idA, int idB) {
-        PokemonView a = pokemonService.getPokemonById(idA);
-        PokemonView b = pokemonService.getPokemonById(idB);
+    public TypeBattleView compareById(int idA, int idB, String requestId) {
+        PokemonView a = pokemonService.getPokemonById(idA, requestId);
+        PokemonView b = pokemonService.getPokemonById(idB, requestId);
 
         AdvantageResult result = typeEffectivenessService.judge(a.types(), b.types());
 
@@ -32,21 +32,23 @@ public class TypeBattleService {
         String aToBLabel =
                 a.name() + " → " + b.name() +
                         " 最大倍率: " + result.aToB().multiplier() +
-                        "（" + result.aToB().attackType() + "）";
+                        "（" + result.aToB().attackType().japaneseName() + "）";
 
         String bToALabel =
                 b.name() + " → " + a.name() +
                         " 最大倍率: " + result.bToA().multiplier() +
-                        "（" + result.bToA().attackType() + "）";
+                        "（" + result.bToA().attackType().japaneseName() + "）";
 
         return new TypeBattleView(
-                a.id(), a.name(), a.types(),
-                b.id(), b.name(), b.types(),
+                a.id(), a.name(), a.types(), a.imageUrl(),
+                b.id(), b.name(), b.types(), b.imageUrl(),
                 result,
                 advantageLabel,
                 aToBLabel,
                 bToALabel
         );
+
     }
+
 }
 

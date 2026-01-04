@@ -8,25 +8,41 @@
 <body>
 <div class="container">
     <div class="card">
-        <h1>タイプ相性 比較結果</h1>
+        <h1 class="battle-title">タイプ相性 比較結果</h1>
 
-        <h2>A: [[${view.nameA}]] (# [[${view.idA}]])</h2>
-        <p>タイプ:
-            <span th:each="t : ${view.typesA}"
-                  class="chip"
-                  th:attr="data-type=${t.name()}"
-                  th:text="${t.japaneseName()}"></span>
+        <div class="battle-row">
+            <div class="poke-col">
+                <h2>A: [[${view.aName}]] (No. [[${view.aId}]])</h2>
 
-        </p>
+                <img th:if="${view.aImageUrl}"
+                     th:src="${view.aImageUrl}"
+                     alt="pokemon-a"
+                     class="pokemon-img"/>
 
-        <h2>B: [[${view.nameB}]] (# [[${view.idB}]])</h2>
-        <p>タイプ:
-            <span th:each="t : ${view.typesB}"
-                  class="chip"
-                  th:attr="data-type=${t.name()}"
-                  th:text="${t.japaneseName()}"></span>
+                <p>タイプ:
+                    <span th:each="t : ${view.aTypes}"
+                          class="chip"
+                          th:attr="data-type=${t.name()}"
+                          th:text="${t.japaneseName()}"></span>
+                </p>
+            </div>
 
-        </p>
+            <div class="poke-col">
+                <h2>B: [[${view.bName}]] (No. [[${view.bId}]])</h2>
+
+                <img th:if="${view.bImageUrl}"
+                     th:src="${view.bImageUrl}"
+                     alt="pokemon-b"
+                     class="pokemon-img"/>
+
+                <p>タイプ:
+                    <span th:each="t : ${view.bTypes}"
+                          class="chip"
+                          th:attr="data-type=${t.name()}"
+                          th:text="${t.japaneseName()}"></span>
+                </p>
+            </div>
+        </div>
 
         <hr>
 
@@ -35,7 +51,6 @@
             <p>[[${view.bToALabel}]]</p>
             <div class="judge">判定: [[${view.advantageLabel}]]</div>
         </div>
-
 
         <div class="actions">
             <a th:href="@{/type-battle}">← もう一度比較</a>
