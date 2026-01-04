@@ -8,19 +8,23 @@
 <body>
 <div class="container">
     <div class="card">
-        <h1>図鑑検索</h1>
+        <div class="form-center">
+            <h1>図鑑検索</h1>
 
-        <form method="post" th:action="@{/pokedex/result}">
-        <div class="row">
-                <label>図鑑番号</label>
-                <input type="number" name="id" min="1" max="1025" required>
+            <form th:action="@{/pokedex/result}" method="post">
+                <div class="row">
+                    <label>図鑑番号</label>
+                    <input type="number" name="id" required>
+                </div>
+
+                <button type="submit">検索</button>
+            </form>
+
+            <div class="actions">
+                <a th:href="@{/}">← トップへ戻る</a>
             </div>
-            <button type="submit">検索</button>
-        </form>
-
-        <div class="actions">
-            <a th:href="@{/}">← トップへ戻る</a>
         </div>
+
 
     </div>
 </div>

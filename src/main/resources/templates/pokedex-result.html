@@ -8,26 +8,29 @@
 <body>
 <div class="container">
     <div class="card">
-        <h1>検索結果</h1>
+        <div class="result-center">
+            <h1>検索結果</h1>
 
-        <p>入力された図鑑番号：<span th:text="${pokemon.id}"></span></p>
-        <p>名前: <span th:text="${pokemon.name}"></span></p>
+            <p>入力された図鑑番号：[[${pokemon.id}]]</p>
+            <p>名前：[[${pokemon.name}]]</p>
 
-        <p>タイプ:
-            <span th:each="t : ${pokemon.types}"
-                  class="chip"
-                  th:attr="data-type=${t.name()}"
-                  th:text="${t.japaneseName()}"></span>
-        </p>
+            <p>タイプ:
+                <span th:each="t : ${pokemon.types}"
+                      class="chip"
+                      th:attr="data-type=${t.name()}"
+                      th:text="${t.japaneseName()}"></span>
+            </p>
 
+            <img th:if="${pokemon.imageUrl}"
+                 th:src="${pokemon.imageUrl}"
+                 class="pokemon-img" />
 
-        <img th:if="${pokemon.imageUrl}" th:src="${pokemon.imageUrl}" alt="pokemon" class="pokemon-img" />
-
-        <div class="actions">
-            <a th:href="@{/pokedex}">← 図鑑入力へ戻る</a>
-            <a th:href="@{/}">← トップへ戻る</a>
+            <div class="actions">
+                <a th:href="@{/pokedex}">← 図鑑入力へ戻る</a>
+                <a th:href="@{/}">← トップへ戻る</a>
+            </div>
         </div>
+
     </div>
-</div>
 </body>
 </html>

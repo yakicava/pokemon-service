@@ -239,7 +239,37 @@ a:hover { text-decoration: underline; }
   line-height: 1.8;
 }
 
+.result-center {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
 
+.result-center h1 {
+  text-align: center;
+}
+
+.result-center .pokemon-img {
+  margin: 20px auto;
+}
+
+.form-center {
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-center form {
+  margin-top: 20px;
+}
+
+.form-center .row {
+  text-align: left;
+}
+
+.form-center button {
+  margin-top: 12px;
+}
 
 
 .chip[data-type="NORMAL"]  { background:#E6E6E6; border-color:#CFCFCF; }
