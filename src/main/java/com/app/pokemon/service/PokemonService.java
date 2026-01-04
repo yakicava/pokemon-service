@@ -1,6 +1,6 @@
 package com.app.pokemon.service;
 
-import com.app.pokemon.api.PokemonSpeciesResponse;
+import com.app.pokemon.api.external.PokemonSpeciesResponse;
 import com.app.pokemon.client.PokemonApiClient;
 import com.app.pokemon.mapper.PokemonTypeMapper;
 import com.app.pokemon.view.PokemonView;

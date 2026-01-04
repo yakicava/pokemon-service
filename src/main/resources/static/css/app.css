@@ -271,6 +271,63 @@ a:hover { text-decoration: underline; }
   margin-top: 12px;
 }
 
+/* バトル全体の中央寄せ */
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+/* カード内中央寄せ */
+.card {
+    text-align: center;
+}
+
+/* ポケモン画像表示 */
+.battle-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin: 24px 0;
+}
+
+.pokemon-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokemon-img {
+    width: 120px;
+    height: auto;
+}
+
+.vs {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* ターンログ：被弾側のHPを強調 */
+.table.battle-log td.hit {
+    font-weight: 700;
+    background: rgba(255, 0, 0, 0.08);
+    border-radius: 6px;
+    padding: 2px 6px;
+}
+
+/* 表全体の視認性をちょい上げ（任意だけどおすすめ） */
+.table.battle-log {
+    margin: 0 auto;
+    text-align: left;
+}
+
+.table.battle-log th,
+.table.battle-log td {
+    padding: 8px 10px;
+}
+
+
+
 
 .chip[data-type="NORMAL"]  { background:#E6E6E6; border-color:#CFCFCF; }
 .chip[data-type="FIRE"]    { background:#FFE2D8; border-color:#FFB9A4; }

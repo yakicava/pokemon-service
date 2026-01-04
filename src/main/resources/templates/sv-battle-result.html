@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>SVバトル結果</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>SVバトル結果</h1>
+
+        <p class="note">
+            入力：
+            A=<span th:text="${attackerId}"></span>
+            <span th:if="${attackerName}" th:text="'（' + ${attackerName} + '）'"></span>
+            /
+            B=<span th:text="${defenderId}"></span>
+            <span th:if="${defenderName}" th:text="'（' + ${defenderName} + '）'"></span>
+        </p>
+
+        <div class="battle-visual">
+            <div class="pokemon-side">
+                <img th:src="${attackerImage}" alt="A" class="pokemon-img">
+                <div class="label">A（[[${attackerName}]]）</div>
+            </div>
+
+            <div class="vs">VS</div>
+
+            <div class="pokemon-side">
+                <img th:src="${defenderImage}" alt="B" class="pokemon-img">
+                <div class="label">B（[[${defenderName}]]）</div>
+            </div>
+        </div>
+
+
+        <div class="result-summary">
+            <p><strong>勝者：</strong><span th:text="${result.winner}"></span></p>
+            <p><strong>先手：</strong><span th:text="${result.first}"></span></p>
+            <p><strong>ターン数：</strong><span th:text="${result.turns}"></span></p>
+            <p>
+                <strong>最終HP：</strong>
+                A=<span th:text="${result.hpAAfter}"></span>,
+                B=<span th:text="${result.hpBAfter}"></span>
+            </p>
+        </div>
+
+        <h2>ターンログ</h2>
+        <table class="table battle-log">
+            <thead>
+            <tr>
+                <th>Turn</th>
+                <th>攻撃側</th>
+                <th>ダメージ</th>
+                <th th:text="${attackerName != null ? 'A HP（' + attackerName + '）' : 'A HP'}"></th>
+                <th th:text="${defenderName != null ? 'B HP（' + defenderName + '）' : 'B HP'}"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="log : ${result.logs}">
+                <td th:text="${log.turn}"></td>
+
+                <td th:text="${
+            log.attacker == 'A'
+                ? 'A（' + (attackerName ?: '') + '）'
+                : 'B（' + (defenderName ?: '') + '）'
+        }"></td>
+
+                <td th:text="${log.damage}"></td>
+
+                <!-- Bが攻撃した＝Aが被弾した → A HP を強調 -->
+                <td th:text="${log.hpAAfter}"
+                    th:classappend="${log.attacker == 'B'} ? 'hit' : ''"></td>
+
+                <!-- Aが攻撃した＝Bが被弾した → B HP を強調 -->
+                <td th:text="${log.hpBAfter}"
+                    th:classappend="${log.attacker == 'A'} ? 'hit' : ''"></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="actions">
+            <a class="menu-btn secondary" th:href="@{/sv-battle}">戻る</a>
+            <a class="menu-btn primary" th:href="@{/}">メニューへ</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

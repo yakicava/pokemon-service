@@ -1,4 +1,4 @@
-package com.app.pokemon.api;
+package com.app.pokemon.api.external;
 
 import java.util.List;
 

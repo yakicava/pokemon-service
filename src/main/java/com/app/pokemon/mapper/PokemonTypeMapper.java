@@ -1,6 +1,6 @@
 package com.app.pokemon.mapper;
 
-import com.app.pokemon.api.PokemonApiResponse;
+import com.app.pokemon.api.external.PokemonApiResponse;
 import com.app.pokemon.domain.Type;
 import org.springframework.stereotype.Component;
 

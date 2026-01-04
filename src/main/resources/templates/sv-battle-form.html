@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>SVバトル</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="container center">
+    <div class="card">
+        <h1>SVバトル</h1>
+
+        <!-- ★ SV対象外などのエラーメッセージ表示 -->
+        <p class="error" th:if="${error}" th:text="${error}"></p>
+
+        <form th:action="@{/sv-battle/result}" method="post" class="form">
+            <div class="field">
+                <label>図鑑番号（A）</label>
+                <input type="number"
+                       name="attackerId"
+                       min="1"
+                       th:value="${attackerId ?: ''}"
+                       required>
+            </div>
+
+            <div class="field">
+                <label>図鑑番号（B）</label>
+                <input type="number"
+                       name="defenderId"
+                       min="1"
+                       th:value="${defenderId ?: ''}"
+                       required>
+            </div>
+
+            <button type="submit">対戦</button>
+        </form>
+
+        <p class="note">※技はSVでLv50までに覚える技から自動選択</p>
+
+        <div class="actions">
+            <a class="menu-btn secondary" th:href="@{/}">メニューへ</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

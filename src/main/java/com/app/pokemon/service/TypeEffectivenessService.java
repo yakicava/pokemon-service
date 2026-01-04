@@ -51,4 +51,16 @@ public class TypeEffectivenessService {
 
         return new AdvantageResult(aToB, bToA, advantage);
     }
+
+    public double multiplier(Type moveType, List<Type> defenderTypes) {
+        return effectiveness(moveType, defenderTypes);
+    }
+
+    public double multiplier(Type moveType, Type def1, Type def2) {
+        if (def2 == null) {
+            return TypeChart.effectiveness(moveType, def1);
+        }
+        return TypeChart.effectiveness(moveType, def1) * TypeChart.effectiveness(moveType, def2);
+    }
+
 }
