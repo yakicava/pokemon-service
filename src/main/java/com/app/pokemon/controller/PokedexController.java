@@ -2,7 +2,6 @@ package com.app.pokemon.controller;
 
 import com.app.pokemon.service.PokemonService;
 import com.app.pokemon.view.PokemonView;
-import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,19 +21,16 @@ public class PokedexController {
     }
 
     @GetMapping
-    public String showForm(HttpServletRequest request) {
-        String requestId = (String) request.getAttribute("requestId");
-        log.info("PokedexController#showForm requestId={}", requestId);
-
+    public String showForm() {
+        log.info("PokedexController#showForm");
         return "pokedex";
     }
 
     @PostMapping("/result")
-    public String showResult(@RequestParam int id, Model model, HttpServletRequest request) {
-        String requestId = (String) request.getAttribute("requestId");
-        log.info("PokedexController#showResult requestId={} id={}", requestId, id);
+    public String showResult(@RequestParam int id, Model model) {
+        log.info("PokedexController#showResult id={}", id);
 
-        PokemonView pokemon = pokemonService.getPokemonById(id, requestId);
+        PokemonView pokemon = pokemonService.getPokemonById(id);
         model.addAttribute("pokemon", pokemon);
 
         return "pokedex-result";

@@ -17,9 +17,9 @@ public class TypeBattleService {
         this.typeEffectivenessService = typeEffectivenessService;
     }
 
-    public TypeBattleView compareById(int idA, int idB, String requestId) {
-        PokemonView a = pokemonService.getPokemonById(idA, requestId);
-        PokemonView b = pokemonService.getPokemonById(idB, requestId);
+    public TypeBattleView compareById(int idA, int idB) {
+        PokemonView a = pokemonService.getPokemonById(idA);
+        PokemonView b = pokemonService.getPokemonById(idB);
 
         AdvantageResult result = typeEffectivenessService.judge(a.types(), b.types());
 

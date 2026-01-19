@@ -2,7 +2,6 @@ package com.app.pokemon.controller;
 
 import com.app.pokemon.service.TypeBattleService;
 import com.app.pokemon.view.TypeBattleView;
-import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,9 +21,8 @@ public class TypeBattleController {
     }
 
     @GetMapping
-    public String showForm(HttpServletRequest request) {
-        String requestId = (String) request.getAttribute("requestId");
-        log.info("TypeBattleController#showForm requestId={}", requestId);
+    public String showForm() {
+        log.info("TypeBattleController#showForm");
         return "type-battle";
     }
 
@@ -32,13 +30,11 @@ public class TypeBattleController {
     public String showResult(
             @RequestParam int idA,
             @RequestParam int idB,
-            Model model,
-            HttpServletRequest request
+            Model model
     ) {
-        String requestId = (String) request.getAttribute("requestId");
-        log.info("TypeBattleController#showResult requestId={} idA={} idB={}", requestId, idA, idB);
+        log.info("TypeBattleController#showResult idA={} idB={}", idA, idB);
 
-        TypeBattleView view = typeBattleService.compareById(idA, idB, requestId);
+        TypeBattleView view = typeBattleService.compareById(idA, idB);
 
         model.addAttribute("view", view);
         return "type-battle-result";

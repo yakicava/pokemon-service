@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PokemonService {
 
-    private static final Logger log =
-            LoggerFactory.getLogger(PokemonService.class);
+    private static final Logger log = LoggerFactory.getLogger(PokemonService.class);
 
     private final PokemonApiClient pokemonApiClient;
     private final PokemonTypeMapper pokemonTypeMapper;
@@ -23,9 +22,8 @@ public class PokemonService {
         this.pokemonTypeMapper = pokemonTypeMapper;
     }
 
-    public PokemonView getPokemonById(int id, String requestId) {
-        String rid = requestId == null ? "N/A" : requestId;
-        log.info("PokemonService#getPokemonById requestId={} id={}", rid, id);
+    public PokemonView getPokemonById(int id) {
+        log.info("PokemonService#getPokemonById id={}", id);
 
         var res = pokemonApiClient.fetchPokemon(id);
         var species = pokemonApiClient.fetchSpecies(id);

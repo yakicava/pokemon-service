@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
@@ -17,14 +18,20 @@ public class RequestLogInterceptor implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler) {
 
-        String requestId = (String) request.getAttribute("requestId");
-        if (requestId == null) {
-            log.warn("[INTERCEPTOR:PRE ] requestId is missing uri={}", request.getRequestURI());
-        } else {
-            log.info("[INTERCEPTOR:PRE ] requestId={} uri={}", requestId, request.getRequestURI());
-        }
-        return true;
+        String uri = request.getRequestURI();
+        String method = request.getMethod();
 
+        if (handler instanceof HandlerMethod hm) {
+            String controller = hm.getBeanType().getSimpleName();
+            String handlerMethod = hm.getMethod().getName();
+            log.info("[HANDLER:PRE ] {} {} -> {}#{}",
+                    method, uri, controller, handlerMethod);
+        } else {
+            log.info("[HANDLER:PRE ] {} {} -> {}",
+                    method, uri, handler.getClass().getSimpleName());
+        }
+
+        return true;
     }
 
     @Override
@@ -33,13 +40,14 @@ public class RequestLogInterceptor implements HandlerInterceptor {
                                 Object handler,
                                 Exception ex) {
 
-        String requestId = (String) request.getAttribute("requestId");
+        String uri = request.getRequestURI();
+        int status = response.getStatus();
 
-        if (requestId == null) {
-            log.warn("[INTERCEPTOR:POST] requestId is missing uri={}", request.getRequestURI());
+        if (ex != null) {
+            log.warn("[HANDLER:END ] status={} uri={} ex={}",
+                    status, uri, ex.toString(), ex);
         } else {
-            log.info("[INTERCEPTOR:POST] requestId={} uri={}", requestId, request.getRequestURI());
+            log.info("[HANDLER:END ] status={} uri={}", status, uri);
         }
     }
-
 }

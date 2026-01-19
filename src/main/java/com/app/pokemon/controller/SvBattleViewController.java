@@ -31,19 +31,16 @@ public class SvBattleViewController {
     @PostMapping("/result")
     public String showResult(@RequestParam int attackerId,
                              @RequestParam int defenderId,
-                             Model model,
-                             HttpServletRequest request) {
-
-        String requestId = (String) request.getAttribute("requestId");
+                             Model model) {
 
         try {
             FullBattleResponse res =
                     svBattleService.fullBattleByIds(attackerId, defenderId);
 
             PokemonView attacker =
-                    pokemonService.getPokemonById(attackerId, requestId);
+                    pokemonService.getPokemonById(attackerId);
             PokemonView defender =
-                    pokemonService.getPokemonById(defenderId, requestId);
+                    pokemonService.getPokemonById(defenderId);
 
             model.addAttribute("attackerId", attackerId);
             model.addAttribute("attackerImage", attacker.imageUrl());
@@ -56,13 +53,9 @@ public class SvBattleViewController {
             return "sv-battle-result";
 
         } catch (SvNotAvailableException e) {
-            // ★ SVにいない場合はここに来る
-
             model.addAttribute("attackerId", attackerId);
             model.addAttribute("defenderId", defenderId);
             model.addAttribute("error", e.getMessage());
-
-            // 入力画面に戻す
             return "sv-battle-form";
         }
     }
