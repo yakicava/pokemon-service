@@ -52,6 +52,12 @@ h1 { margin: 0 0 10px; font-size: 28px; }
 h2 { margin: 18px 0 8px; font-size: 20px; }
 p  { margin: 10px 0; }
 
+hr {
+  border: none;
+  border-top: 1px solid var(--hr);
+  margin: 18px 0;
+}
+
 label {
   display: block;
   font-weight: 800;
@@ -69,6 +75,15 @@ input[type="number"] {
   border: 1px solid var(--border);
   font-size: 16px;
 }
+
+.form-center {
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+}
+.form-center form { margin-top: 20px; }
+.form-center .row { text-align: left; }
+.form-center button { margin-top: 12px; }
 
 .btn,
 button {
@@ -99,11 +114,12 @@ button:active {
   transform: translateY(1px);
 }
 
-.btn-primary,
 button {
-  background: var(--link);
-  color: #fff;
+  background: transparent;
+  color: inherit;
 }
+
+.btn-primary { background: var(--link); color: #fff; }
 
 .btn-secondary {
   background: #00a389;
@@ -116,27 +132,12 @@ button {
   border: 1px solid #e6e6e6;
 }
 
-.form-center {
-  max-width: 420px;
-  margin: 0 auto;
-  text-align: center;
-}
-.form-center form { margin-top: 20px; }
-.form-center .row { text-align: left; }
-.form-center button { margin-top: 12px; }
-
 .actions {
   margin-top: 24px;
   display: flex;
   justify-content: center;
   gap: 24px;
   flex-wrap: wrap;
-}
-
-hr {
-  border: none;
-  border-top: 1px solid var(--hr);
-  margin: 18px 0;
 }
 
 .chip {
@@ -195,18 +196,6 @@ hr {
   box-shadow: 0 10px 20px rgba(0,0,0,0.08);
   transform: translateY(-1px);
   text-decoration: none;
-}
-
-.menu-btn.primary {
-  background: var(--link);
-  color: #fff;
-  border: 1px solid var(--link);
-}
-
-.menu-btn.secondary {
-  background: #00a389;
-  color: #fff;
-  border: 1px solid #00a389;
 }
 
 @media (min-width: 640px) {
@@ -305,6 +294,62 @@ hr {
   border-radius: 6px;
   padding: 2px 6px;
 }
+
+.section {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--hr);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.muted {
+  color: #666;
+  font-size: 14px;
+}
+
+.table {
+  width: 100%;
+}
+
+.table.battle-log {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--hr);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.table.battle-log thead th {
+  background: var(--bg);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--hr);
+  text-align: left;
+}
+
+.table.battle-log tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--hr);
+}
+
+.table.battle-log tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table.battle-log tbody tr:hover {
+  background: rgba(0,0,0,0.02);
+}
+
+.table.battle-log th:first-child,
+.table.battle-log td:first-child {
+  width: 60px;
+  text-align: center;
+}
+
+.actions {
+  margin-top: 18px;
+}
+
 
 .chip[data-type="NORMAL"]   { background:#E6E6E6; border-color:#CFCFCF; }
 .chip[data-type="FIRE"]     { background:#FFE2D8; border-color:#FFB9A4; }

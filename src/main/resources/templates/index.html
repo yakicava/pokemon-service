@@ -1,10 +1,12 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <title>Pokemon App</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pokémon App</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
 </head>
+
 <body>
 <div class="container">
     <div class="card menu-card">
@@ -12,9 +14,10 @@
         <p class="menu-subtitle">使いたい機能を選んでください</p>
 
         <div class="menu-buttons">
-            <a class="menu-btn primary" th:href="@{/pokedex}">図鑑（検索）</a>
-            <a class="menu-btn secondary" th:href="@{/type-battle}">疑似対戦（タイプ相性）</a>
-            <a class="menu-btn primary" th:href="@{/sv-battle}">SV対戦（勝敗判定）</a>
+            <a class="menu-btn" th:href="@{/pokedex}">図鑑（検索）</a>
+            <a class="menu-btn" th:href="@{/pokedex/history}">検索履歴</a>
+            <a class="menu-btn" th:href="@{/type-battle}">疑似対戦（タイプ相性）</a>
+            <a class="menu-btn" th:href="@{/sv-battle}">SV対戦（勝敗判定）</a>
         </div>
     </div>
 </div>
