@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Not Found</title>
+</head>
+<body>
+<main style="max-width: 720px; margin: 40px auto; padding: 0 16px;">
+    <p th:if="${pokemonId}">
+        指定された図鑑番号のポケモンは見つかりませんでした（id=<span th:text="${pokemonId}">0</span>）
+    </p>
+
+    <p th:if="${errorMessage}" th:text="${errorMessage}">対象が見つかりませんでした。</p>
+
+
+    <p style="color: #666; font-size: 0.9em;">
+        <span>Path: </span><span th:text="${path}">/</span>
+    </p>
+
+    <p>
+        <a href="/pokedex" style="text-decoration: underline;">検索画面へ戻る</a>
+    </p>
+</main>
+</body>
+</html>

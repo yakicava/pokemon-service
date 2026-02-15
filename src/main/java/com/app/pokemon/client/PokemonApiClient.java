@@ -1,78 +1,65 @@
 package com.app.pokemon.client;
 
 import com.app.pokemon.api.external.*;
+import com.app.pokemon.exception.ExternalApiException;
+import com.app.pokemon.exception.MoveNotFoundException;
+import com.app.pokemon.exception.PokemonNotFoundException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientResponseException;
 
 @Component
 public class PokemonApiClient {
 
     private final RestClient pokeApiRestClient;
 
-
     public PokemonApiClient(RestClient pokeApiRestClient) {
         this.pokeApiRestClient = pokeApiRestClient;
     }
 
     public PokemonApiResponse fetchPokemon(int id) {
-        PokemonApiResponse res = pokeApiRestClient.get()
-                .uri("/pokemon/{id}", id)
-                .retrieve()
-                .body(PokemonApiResponse.class);
-
-        if (res == null) {
-            throw new RuntimeException("Pokemon not found: id=" + id);
-        }
-        return res;
+        return getOrThrowByPokemonId("/pokemon/{id}", PokemonApiResponse.class, id);
     }
 
     public PokemonSpeciesResponse fetchSpecies(int id) {
-        PokemonSpeciesResponse res = pokeApiRestClient.get()
-                .uri("/pokemon-species/{id}", id)
-                .retrieve()
-                .body(PokemonSpeciesResponse.class);
-
-        if (res == null) {
-            throw new RuntimeException("Pokemon species not found: id=" + id);
-        }
-        return res;
+        return getOrThrowByPokemonId("/pokemon-species/{id}", PokemonSpeciesResponse.class, id);
     }
 
     public PokemonMovesApiResponse fetchPokemonMoves(int id) {
-        PokemonMovesApiResponse res = pokeApiRestClient.get()
-                .uri("/pokemon/{id}", id)
-                .retrieve()
-                .body(PokemonMovesApiResponse.class);
-
-        if (res == null) {
-            throw new RuntimeException("Pokemon moves not found: id=" + id);
-        }
-        return res;
+        return getOrThrowByPokemonId("/pokemon/{id}", PokemonMovesApiResponse.class, id);
     }
 
     public PokemonBattleApiResponse fetchPokemonBattle(int id) {
-        PokemonBattleApiResponse res = pokeApiRestClient.get()
-                .uri("/pokemon/{id}", id)
-                .retrieve()
-                .body(PokemonBattleApiResponse.class);
-
-        if (res == null) {
-            throw new RuntimeException("Pokemon battle data not found: id=" + id);
-        }
-        return res;
+        return getOrThrowByPokemonId("/pokemon/{id}", PokemonBattleApiResponse.class, id);
     }
 
     public PokemonMoveApiResponse fetchMove(String moveName) {
-        PokemonMoveApiResponse res = pokeApiRestClient.get()
-                .uri("/move/{name}", moveName)
-                .retrieve()
-                .body(PokemonMoveApiResponse.class);
-
-        if (res == null) {
-            throw new RuntimeException("Move not found: name=" + moveName);
+        try {
+            return pokeApiRestClient.get()
+                    .uri("/move/{name}", moveName)
+                    .retrieve()
+                    .body(PokemonMoveApiResponse.class);
+        } catch (RestClientResponseException ex) {
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw new MoveNotFoundException("Move not found: name=" + moveName);
+            }
+            throw new ExternalApiException("Failed to call PokeAPI: /move/{name} name=" + moveName, ex);
         }
-        return res;
     }
 
+    private <T> T getOrThrowByPokemonId(String path, Class<T> type, int id) {
+        try {
+            return pokeApiRestClient.get()
+                    .uri(path, id)
+                    .retrieve()
+                    .body(type);
+        } catch (RestClientResponseException ex) {
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw new PokemonNotFoundException(id);
+            }
+            throw new ExternalApiException("Failed to call PokeAPI: " + path + " id=" + id, ex);
+        }
+    }
 }
